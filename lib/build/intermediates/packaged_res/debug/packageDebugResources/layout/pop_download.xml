@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:gravity="center"
+     android:background="@color/bg_log"
+     android:id="@+id/inti">
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:background="@drawable/bg_kotak"
+         android:padding="5dp"
+         android:layout_margin="15dp"
+         android:orientation="vertical"
+         android:backgroundTint="@color/bg_pop"
+         android:id="@+id/anak">
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:layout_margin="5dp"
+             android:padding="10dp"
+             android:fontFamily="@font/alkdots"
+             android:textSize="18sp"
+             android:id="@+id/judul"
+             android:textStyle="bold"
+             android:text="Download" />
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:layout_margin="25dp"
+             android:orientation="vertical">
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="10dp"
+                 android:textSize="16sp"
+                 android:text="Link"
+                 android:textStyle="italic"
+                 android:id="@+id/nama" />
+
+            <ProgressBar
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="10dp"
+                 android:id="@+id/proses_bar"
+                 android:layout_gravity="center_horizontal" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="16sp"
+                 android:textStyle="bold"
+                 android:text="0%"
+                 android:layout_gravity="center_horizontal"
+                 android:id="@+id/persen" />
+
+            <LinearLayout
+                 android:layout_height="10dp"
+                 android:layout_width="match_parent"
+                 android:layout_marginBottom="10dp"
+                 android:background="@color/bg"
+                 android:id="@+id/root_proses">
+
+                <LinearLayout
+                     android:layout_height="match_parent"
+                     android:layout_width="wrap_content"
+                     android:background="#99ffaa"
+                     android:id="@+id/anak_proses">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:id="@+id/ukuran"
+                 android:text="Size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:gravity="end"
+             android:layout_margin="15dp">
+
+            <TextView
+                 android:layout_height="35dp"
+                 android:layout_width="80dp"
+                 android:gravity="center"
+                 android:background="@drawable/bg_kotak"
+                 android:backgroundTint="@color/ui_ungu"
+                 android:id="@+id/n"
+                 android:text="Cencel" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

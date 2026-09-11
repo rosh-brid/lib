@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<resources>
+    <color name="bg">#000000</color>
+    <color name="tulisan">#ffffff</color>
+    <color name="bg_pop">#333343</color>
+    <color name="bg_log">#30333333</color>
+    <color name="ungu">#773377</color>
+    <color name="biru">#337777</color>
+    
+    <color name="ui_bg">#75000000</color>
+    <color name="ui_ungu">#75773377</color>
+    <color name="ui_biru">#75337777</color>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#ffffff</color>
+    <color name="bg_log">#30aaaaaa</color>
+    <color name="bg_pop">#aaaaaa</color>
+    <color name="biru">#aaffff</color>
+    <color name="tulisan">#000000</color>
+    <color name="ui_bg">#75ffffff</color>
+    <color name="ui_biru">#75aaffff</color>
+    <color name="ui_ungu">#75ffaaff</color>
+    <color name="ungu">#ffaaff</color>
+    <style name="Base.AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:fontFamily">@font/sanet</item>
+        <item name="android:textColor">@color/tulisan</item>
+        <item name="android:windowBackground">@drawable/bg_campur</item>
+    </style>
+    <style name="RoshTheme" parent="Base.AppTheme"/>
+</resources>

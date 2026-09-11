@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Mengatur padding/inset agar ikon tidak terlalu besar di adaptive icon -->
+    
+     <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/bg" />
+        </shape>
+    </item>
+    
+    <item
+        android:left="3dp"
+        android:top="3dp"
+        android:right="3dp"
+        android:bottom="3dp">
+        
+        <!-- Panggil vector asli Anda di sini -->
+        <vector
+            android:width="24dp"
+            android:height="24dp"
+            android:viewportWidth="24"
+            android:viewportHeight="24">
+
+            <!-- Kepala Android -->
+            <path
+                android:fillColor="@color/tulisan"
+                android:pathData="M7,9.5C7,7.3 8.8,5.5 11,5.5h2c2.2,0 4,1.8 4,4v3H7V9.5z
+                                  M8.8,5.5L7.5,4.2L8.3,3.5L9.5,4.8z
+                                  M15.2,4.8L16.5,3.5L17.3,4.2L16,5.5z
+                                  M10,9a0.6,0.6 0,1 0,0.1 0z
+                                  M14,9a0.6,0.6 0,1 0,0.1 0z" />
+
+            <!-- Buku terbuka menyatu -->
+            <path
+                android:fillColor="@color/tulisan"
+                android:pathData="M2.5,14.5
+                                  C5,13.5 7.5,14 12,17
+                                  C16.5,14 19,13.5 21.5,14.5
+                                  L21.5,20.5
+                                  C18.5,19.2 15.5,19.5 12,21
+                                  C8.5,19.5 5.5,19.2 2.5,20.5Z" />
+
+            <!-- Garis tulisan kiri -->
+            <path
+                android:fillColor="@color/tulisan"
+                android:pathData="M4,16h4v0.5H4z
+                                  M5,17.2h3v0.5H5z
+                                  M6,18.4h2v0.5H6z" />
+
+            <!-- Garis tulisan kanan -->
+            <path
+                android:fillColor="@color/tulisan"
+                android:pathData="M16,16h4v0.5h-4z
+                                  M16,17.2h3v0.5h-3z
+                                  M16,18.4h2v0.5h-2z" />
+        </vector>
+    </item>
+</layer-list>

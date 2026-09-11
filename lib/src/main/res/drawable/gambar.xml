@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- 1. Bingkai Foto (Gaya Terminal: Solid luar, bolong dalam) -->
+    <path
+        android:fillColor="@color/tulisan"
+        android:fillType="evenOdd"
+        android:pathData="M7,3 h10 c2.2,0 4,1.8 4,4 v10 c0,2.2 -1.8,4 -4,4 H7 c-2.2,0 -4,-1.8 -4,-4 V7 c0,-2.2 1.8,-4 4,-4 z
+                          M7,5 h10 c1.1,0 2,0.9 2,2 v10 c0,1.1 -0.9,2 -2,2 H7 c-1.1,0 -2,-0.9 -2,-2 V7 c0,-1.1 0.9,-2 2,-2 z" />
+
+    <!-- 2. Siluet 2 Gunung (Depan dan Belakang yang menyatu estetik) -->
+    <path
+        android:fillColor="@color/tulisan"
+        android:pathData="M5,19 L10,11 L13,15.5 L15.5,12 L19,17.5 V19 Z" />
+
+    <!-- 3. Matahari (Berada pas di atas lembah antara 2 gunung) -->
+    <path
+        android:fillColor="@color/tulisan"
+        android:pathData="M15,5.5 a1.5,1.5 0 1,0 0,3 a1.5,1.5 0 1,0 0,-3 z" />
+
+</vector>

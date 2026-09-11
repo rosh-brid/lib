@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- 1. Bingkai Video (Layar Landscape, sudut membulat, bolong di tengah) -->
+    <path
+        android:fillColor="@color/tulisan"
+        android:fillType="evenOdd"
+        android:pathData="M6,4 h12 c2.2,0 4,1.8 4,4 v8 c0,2.2 -1.8,4 -4,4 H6 c-2.2,0 -4,-1.8 -4,-4 V8 c0,-2.2 1.8,-4 4,-4 z 
+                          M6,6 h12 c1.1,0 2,0.9 2,2 v8 c0,1.1 -0.9,2 -2,2 H6 c-1.1,0 -2,-0.9 -2,-2 V8 c0,-1.1 0.9,-2 2,-2 z" />
+
+    <!-- 2. Simbol | (Garis Tunggal) - Di kiri, digeser ke tengah -->
+    <path
+        android:fillColor="@color/tulisan"
+        android:pathData="M10,9 h1.5 v6 h-1.5 z" />
+
+    <!-- 3. Simbol > (Play) - Di kanan, merapat ke garis | -->
+    <path
+        android:fillColor="@color/tulisan"
+        android:pathData="M12.5,9 l4,3 l-4,3 z" />
+
+</vector>
