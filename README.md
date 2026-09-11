@@ -1,0 +1,1 @@
+[![](https://jitpack.io/v/rosh-brid/lib.svg)](https://jitpack.io/#rosh-brid/lib)
