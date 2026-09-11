@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
+    id("maven-publish") // 1. WAJIB DITAMBAHKAN
 }
 
 version = "1.0.1"
@@ -43,23 +44,16 @@ android {
             jniLibs.srcDirs("src/main/jniLibs")
         }
     }
-    
-    //externalNativeBuild {
-        //cmake {
-            //path("src/main/cpp/CMakeLists.txt")
-            //version = "4.1.2"
-        //}
-    //}
   
     buildTypes {
         release {
-        isMinifyEnabled = false
-        proguardFiles(
-            getDefaultProguardFile("proguard-android-optimize.txt"),
-            "proguard-rules.pro"
-        )
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
-  }
+    }
 
     buildFeatures {
         viewBinding = true
@@ -69,6 +63,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    
     kotlin {
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget("17"))
@@ -86,11 +81,18 @@ dependencies {
     implementation("androidx.annotation:annotation:1.7.0")
 }
 
+// 2. SINTAKS KOTLIN DSL YANG BENAR
 afterEvaluate {
     publishing {
         publications {
-            release(MavenPublication) {
-                from components.release
+            create<MavenPublication>("release") {
+                from(components["release"])
+                
+                // Opsional: Jitpack biasanya akan menimpa ini,
+                // tapi sangat disarankan untuk ditulis agar build lokal juga aman.
+                groupId = "com.github.rosh-brid" 
+                artifactId = "lib"
+                version = "1.0.1"
             }
         }
     }
