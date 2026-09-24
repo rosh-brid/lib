@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<resources>
+    <color name="bg">#ffffff</color>
+    <color name="bg_pop">#aaaaaa</color>
+    <color name="bg_log">#50aaaaaa</color>
+
+    <color name="text">#000000</color>
+    
+    <color name="ui_main">#80ffaaff</color>
+    <color name="ui_parent">#80aaffff</color>
+    
+    <color name="main">#ffaaff</color>
+    <color name="parent">#aaffff</color>
+</resources>

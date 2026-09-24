@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#ffffff</color>
+    <color name="bg_log">#50aaaaaa</color>
+    <color name="bg_pop">#aaaaaa</color>
+    <color name="main">#ffaaff</color>
+    <color name="parent">#aaffff</color>
+    <color name="text">#000000</color>
+    <color name="ui_main">#80ffaaff</color>
+    <color name="ui_parent">#80aaffff</color>
+    <style name="RoshTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        <item name="android:textColor">@color/text</item>
+        <item name="android:windowBackground">@drawable/gradient_bg</item>
+        <item name="android:fontFamily">@font/archyedt_bold</item>
+        
+    </style>
+</resources>

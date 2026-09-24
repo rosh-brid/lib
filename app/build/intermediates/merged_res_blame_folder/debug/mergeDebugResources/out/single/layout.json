@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/data/user/0/com.tom.rv2ide/files/home/.gradle/daemon/9.0.0/rosh.test.app-mergeDebugResources-36:/layout/activity_main.xml",
+        "source": "/data/user/0/com.tom.rv2ide/files/home/.gradle/daemon/9.0.0/rosh.test.app-main-39:/layout/activity_main.xml"
+    },
+    {
+        "merged": "rosh.test.app-mergeDebugResources-36:/layout/activity_main.xml",
+        "source": "rosh.test.app-main-39:/layout/activity_main.xml"
+    }
+]
