@@ -4,16 +4,16 @@
     android:height="24dp"
     android:viewportHeight="24"
     android:viewportWidth="24"
-    android:tint="?attr/colorControlNormal">
+    android:tint="@color/text">
     <path
-        android:strokeColor="#ff000000"
+        android:strokeColor="@color/text"
         android:strokeWidth="2"
         android:strokeLineJoin="round"
         android:strokeLineCap="round"
         android:pathData="M12,12m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0"/>
 
     <path
-        android:strokeColor="#ff000000"
+        android:strokeColor="@color/text"
         android:strokeWidth="2"
         android:strokeLineJoin="round"
         android:strokeLineCap="round"

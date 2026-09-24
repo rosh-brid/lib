@@ -30,8 +30,11 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun DownloadUbuntu(){
-        val u = lib.action.FileProperti(this)
-        u.setFile(File("/storage/FDFF-B5F2/firmware/g9_pro/SC9863A_E78_Android10_6501_vsim_V1.0_20210616.pac"))
-        u.start()
+        val u = lib.action.Message(this)
+        u.setTitle("warning")
+        u.setMessage("You will exit app")
+        u.setPositiveButton("sure"){finish()}
+        u.setNegativeButton("cencel", null)
+        u.show()
     }
 }
