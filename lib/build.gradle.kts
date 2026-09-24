@@ -71,3 +71,17 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.activity:activity:1.10.1")
 }
+
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            groupId = "com.github.rosh-brid"
+            artifactId = "lib"
+            version = "1.2.2"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+}
