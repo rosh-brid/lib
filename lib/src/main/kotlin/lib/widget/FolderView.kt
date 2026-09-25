@@ -1,23 +1,14 @@
 package lib.widget
 
 import android.app.Activity
-import android.content.Context
-import android.content.ContextWrapper
-import android.graphics.Color
-import android.graphics.Typeface
-import android.os.Build
-import android.os.Environment
+import android.content.*
+import android.graphics.*
+import android.os.*
 import android.text.TextUtils
-import android.util.AttributeSet
-import android.util.TypedValue
-import android.view.Gravity
-import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.util.*
+import android.view.*
+import android.widget.*
+import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
 import java.io.File
 
@@ -37,6 +28,7 @@ class FolderView @JvmOverloads constructor(
     private var selectedFile: File? = null
     private val expandedPaths = mutableSetOf<String>()
     private var onFileSelected: ((File) -> Unit)? = null
+    private var onFileLongClick: ((File) -> Unit)? = null
 
     private val recyclerView: RecyclerView
     private val emptyView: TextView
@@ -61,9 +53,14 @@ class FolderView @JvmOverloads constructor(
             visibility = GONE
         }
 
-        treeAdapter = TreeAdapter { clickedNode, position ->
-            onNodeClicked(clickedNode, position)
-        }
+        treeAdapter = TreeAdapter(
+            onItemClick = { clickedNode, position ->
+                onNodeClicked(clickedNode, position)
+            },
+            onItemLongClick = { clickedNode, position ->
+                onNodeLongClicked(clickedNode, position)
+            }
+        )
         recyclerView.adapter = treeAdapter
         addView(recyclerView)
         addView(emptyView)
@@ -81,6 +78,13 @@ class FolderView @JvmOverloads constructor(
             treeAdapter.setSelectedPosition(position)
             onFileSelected?.invoke(node.file)
         }
+    }
+
+    private fun onNodeLongClicked(node: FileNode, position: Int): Boolean {
+        if (position == RecyclerView.NO_POSITION) return false
+        val listener = onFileLongClick ?: return false
+        listener.invoke(node.file)
+        return true
     }
 
     fun segarkan() {
@@ -125,6 +129,10 @@ class FolderView @JvmOverloads constructor(
         onFileSelected = listener
     }
 
+    fun setOnFileLongClickListener(listener: (File) -> Unit) {
+        onFileLongClick = listener
+    }
+
     fun scrollToPath(path: String) {
         val idx = treeAdapter.indexOfPath(path)
         if (idx >= 0) recyclerView.scrollToPosition(idx)
@@ -159,7 +167,8 @@ class FolderView @JvmOverloads constructor(
     }
 
     private inner class TreeAdapter(
-        private val onItemClick: (FileNode, Int) -> Unit
+        private val onItemClick: (FileNode, Int) -> Unit,
+        private val onItemLongClick: (FileNode, Int) -> Boolean
     ) : RecyclerView.Adapter<TreeAdapter.TreeViewHolder>() {
 
         private val visibleNodes: MutableList<FileNode> = mutableListOf()
@@ -284,6 +293,15 @@ class FolderView @JvmOverloads constructor(
                 val currentPos = holder.adapterPosition
                 if (currentPos != RecyclerView.NO_POSITION) {
                     onItemClick(node, currentPos)
+                }
+            }
+            holder.itemView.setOnLongClickListener {
+                @Suppress("DEPRECATION")
+                val currentPos = holder.adapterPosition
+                if (currentPos != RecyclerView.NO_POSITION) {
+                    onItemLongClick(node, currentPos)
+                } else {
+                    false
                 }
             }
         }
