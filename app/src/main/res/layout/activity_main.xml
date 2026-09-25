@@ -53,6 +53,7 @@
             <ImageView
                  android:layout_height="30dp"
                  android:layout_width="30dp"
+                 android:id="@+id/keluar"
                  android:src="@drawable/exit"
                  android:layout_marginStart="10dp"
                  android:layout_gravity="center_vertical|start" />
@@ -61,6 +62,7 @@
                  android:layout_height="30dp"
                  android:layout_width="30dp"
                  android:src="@drawable/arrow_close"
+                 android:id="@+id/tutup"
                  android:layout_marginEnd="10dp"
                  android:layout_gravity="center_vertical|end" />
 

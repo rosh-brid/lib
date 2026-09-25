@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.github.rosh-brid"
-version = "1.2.3"
+version = "1.2.5"
 
 android {
     namespace = "lib"
@@ -78,7 +78,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.rosh-brid"
             artifactId = "lib"
-            version = "1.2.3"
+            version = "1.2.5"
 
             afterEvaluate {
                 from(components["release"])

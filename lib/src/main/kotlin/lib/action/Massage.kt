@@ -12,7 +12,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 
-class Message(private val kelas: Activity) {
+class Massage(private val kelas: Activity) {
 
     private val item: View
     private val pop: PopupWindow
@@ -49,23 +49,17 @@ class Message(private val kelas: Activity) {
         inti = item.findViewById(R.id.inti)
         anak = item.findViewById(R.id.anak)
 
-        // Default
         j.text = "Warning"
         p.text = "Message"
 
-        // Klik area luar dialog
         inti.setOnClickListener {
             pop.dismiss()
         }
 
-        // Supaya klik isi tidak menutup popup
         anak.setOnClickListener {
         }
 
-        // Tombol negative
         n.visibility = View.GONE
-
-        // Tombol positive
         y.visibility = View.GONE
     }
 
@@ -73,7 +67,7 @@ class Message(private val kelas: Activity) {
         j.text = terima ?: "Warning"
     }
 
-    fun setMessage(terima: String?) {
+    fun setMassage(terima: String?) {
         p.text = terima ?: "Message"
     }
 
