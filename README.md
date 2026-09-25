@@ -107,14 +107,14 @@ Library Android from Rosh.
 [![](https://jitpack.io/v/rosh-brid/lib.svg)](https://jitpack.io/#rosh-brid/lib)
    
 ## Theme Rosh
-    ```xml
+    ```
     <!--in manifest(application)-->
     <application
         android:theme="@style/RoshTheme">
     
     </application>
     ```
-    ```xml
+    ```
     <!-- image -->
     <TextView
         android:fontFamily="@font/alkdots"/>
