@@ -10,20 +10,27 @@
         android:strokeWidth="2"
         android:strokeLineJoin="round"
         android:strokeLineCap="round"
-        android:pathData="M12,17h0.01"/>
+        android:pathData="M15,2H6a2,2 0,0 0,-2 2v16a2,2 0,0 0,2 2h12a2,2 0,0 0,2 -2V7Z"/>
 
     <path
         android:strokeColor="@color/text"
         android:strokeWidth="2"
         android:strokeLineJoin="round"
         android:strokeLineCap="round"
-        android:pathData="M15,2H6a2,2 0,0 0,-2 2v16a2,2 0,0 0,2 2h12a2,2 0,0 0,2 -2V7z"/>
+        android:pathData="M14,2v4a2,2 0,0 0,2 2h4"/>
 
     <path
         android:strokeColor="@color/text"
         android:strokeWidth="2"
         android:strokeLineJoin="round"
         android:strokeLineCap="round"
-        android:pathData="M9.1,9a3,3 0,0 1,5.82 1c0,2 -3,3 -3,3"/>
+        android:pathData="M10,12m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"/>
+
+    <path
+        android:strokeColor="@color/text"
+        android:strokeWidth="2"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="m20,17 -1.296,-1.296a2.41,2.41 0,0 0,-3.408 0L9,22"/>
 
 </vector>

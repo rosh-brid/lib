@@ -17,6 +17,6 @@ dependencyResolutionManagement {
 rootProject.name = "lib"
 
 include(
-  ":app",
+  ":test",
   ":lib"
 )
