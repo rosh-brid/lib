@@ -33,3 +33,38 @@ Library Android from Rosh.
        ```
        
 - **Alert Download**
+    ```kotlin
+    val download = lib.action.Download(this)
+        download.setLink("your link")
+        download.setDir("save your file in folder)
+        download.setName("name file download") //opsional
+        download.onFinished("your acton") //opsional maybe go to tar/unzip whitout click
+        download.show()
+        ```
+        
+- **Alert Unzip**
+- **Alert FileProperti**
+- **Alert Delete**
+- **Alert Copy/Move**
+- **Alert Unpac**
+
+- **Click View**
+   ```kotlin
+   //if you use onClick or setOnClickListener
+   //which click put view and action
+   Click(myButton).one{
+     startActivity(Intent(this, MyActivity::class.java)) //or your action
+   }
+   
+   Click(myButton).long{
+       Toast.makeText(this, "Long press button", Toast.LENGTH_SHORT).show()
+   }
+   
+   Click(myImage).goRight{
+      img.setImageResource(imgNext)
+   }
+   
+   Click(myImg).goLeft{
+      img.setImageResource(imgProfeus)
+   }
+   ```
