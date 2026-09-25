@@ -68,3 +68,33 @@ Library Android from Rosh.
       img.setImageResource(imgProfeus)
    }
    ```
+   
+- **Extension Icon**
+    ```kotlin
+    val file = File(filesDir)
+    for(list in file){
+        val img = ImageView(this)
+        img.setImageResource(
+        if(list.isDirectory){lib.R.drawable.folder}
+        else{
+            val icon = lib.view.IconFile(this)
+            icon.setGlide(img) //opsional if your use image or video img = image view(val)
+            Type(list)
+        }
+        )
+    }
+    ```
+   
+## Gradle Dependencies
+
+   ```
+   //kotlin
+   dependencies {
+       implementation("com.github.rosh-brid:lib:1.2.5")
+   }
+   
+   //groovy
+   dependencies {
+      implementation 'com.github.rosh-brid:lib:1.2.5'
+   }
+   ```
