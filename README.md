@@ -84,7 +84,13 @@ Library Android from Rosh.
         )
     }
     ```
-   
+    ```kotlin
+    //or you get image icon
+    myImg.setImageResource(lib.R.drawable.image)
+    ```
+   ```xml
+   android:src="@drawable/image"
+   ```
 ## Gradle Dependencies
 
    ```
@@ -98,3 +104,17 @@ Library Android from Rosh.
       implementation 'com.github.rosh-brid:lib:1.2.5'
    }
    ```
+   
+## Theme Rosh
+    ```xml
+    //in manifest(application)
+    <application
+        android:theme="@style/RoshTheme">
+    
+    </application>
+    ```
+    ```xml
+    //font
+    <TextView
+        android:fontFamily="@font/alkdots"/>
+    ```
