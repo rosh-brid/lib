@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         
         PasangId()
+        Awal()
         Tombol()
     }
     
@@ -32,6 +33,10 @@ class MainActivity : AppCompatActivity() {
         if(pusat.isDrawerOpen(GravityCompat.START)){
             pusat.closeDrawer(GravityCompat.START)
         }else{Keluar()}
+    }
+    
+    private fun Awal(){
+        
     }
     
     private fun Keluar(){
