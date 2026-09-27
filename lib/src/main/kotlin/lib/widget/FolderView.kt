@@ -3,17 +3,18 @@ package lib.widget
 import android.app.Activity
 import android.content.*
 import android.graphics.*
+import android.net.Uri
 import android.os.*
 import android.text.TextUtils
 import android.util.*
 import android.view.*
 import android.widget.*
+import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
-import java.io.File
 
 data class FileNode(
-    val file: File,
+    val doc: DocumentFile,
     val depth: Int,
     var isExpanded: Boolean = false
 )
@@ -24,19 +25,20 @@ class FolderView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private var targetDirectory: File
-    private var selectedFile: File? = null
+    private var targetDirectory: DocumentFile
+    private var selectedDoc: DocumentFile? = null
     private val expandedPaths = mutableSetOf<String>()
-    private var onFileSelected: ((File) -> Unit)? = null
-    private var onFileLongClick: ((File) -> Unit)? = null
+    private var onFileSelected: ((DocumentFile) -> Unit)? = null
+    private var onFileLongClick: ((DocumentFile) -> Unit)? = null
 
     private val recyclerView: RecyclerView
     private val emptyView: TextView
     private val treeAdapter: TreeAdapter
 
     init {
-        val fallbackDir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) ?: context.filesDir
-        targetDirectory = fallbackDir
+        val fallbackDir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+            ?: context.filesDir
+        targetDirectory = DocumentFile.fromFile(fallbackDir)
 
         recyclerView = RecyclerView(context).apply {
             layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
@@ -54,48 +56,44 @@ class FolderView @JvmOverloads constructor(
         }
 
         treeAdapter = TreeAdapter(
-            onItemClick = { clickedNode, position ->
-                onNodeClicked(clickedNode, position)
-            },
-            onItemLongClick = { clickedNode, position ->
-                onNodeLongClicked(clickedNode, position)
-            }
+            onItemClick = { node, pos -> onNodeClicked(node, pos) },
+            onItemLongClick = { node, pos -> onNodeLongClicked(node, pos) }
         )
         recyclerView.adapter = treeAdapter
         addView(recyclerView)
         addView(emptyView)
 
-        segarkan()
+        refresh()
     }
 
     private fun onNodeClicked(node: FileNode, position: Int) {
-        if (node.file.isDirectory) {
+        if (node.doc.isDirectory) {
             treeAdapter.toggleFolder(node, position)
-            if (node.isExpanded) expandedPaths.add(node.file.absolutePath)
-            else expandedPaths.remove(node.file.absolutePath)
+            if (node.isExpanded) expandedPaths.add(node.doc.uri.toString())
+            else expandedPaths.remove(node.doc.uri.toString())
         } else {
-            selectedFile = node.file
+            selectedDoc = node.doc
             treeAdapter.setSelectedPosition(position)
-            onFileSelected?.invoke(node.file)
+            onFileSelected?.invoke(node.doc)
         }
     }
 
     private fun onNodeLongClicked(node: FileNode, position: Int): Boolean {
         if (position == RecyclerView.NO_POSITION) return false
         val listener = onFileLongClick ?: return false
-        listener.invoke(node.file)
+        listener.invoke(node.doc)
         return true
     }
 
-    fun segarkan() {
+    fun refresh() {
         val visible = mutableListOf<FileNode>()
         try {
-            val files = targetDirectory.listFiles()?.toList() ?: emptyList()
-            val sortedFiles = files.sortedWith(
-                compareBy({ !it.isDirectory }, { it.name.lowercase() })
+            val files = targetDirectory.listFiles().toList()
+            val sorted = files.sortedWith(
+                compareBy({ !it.isDirectory }, { (it.name ?: "").lowercase() })
             )
-            for (f in sortedFiles) {
-                val node = FileNode(f, 0, isExpanded = expandedPaths.contains(f.absolutePath))
+            for (f in sorted) {
+                val node = FileNode(f, 0, isExpanded = expandedPaths.contains(f.uri.toString()))
                 visible.add(node)
                 if (node.isExpanded && f.isDirectory) restoreChildren(visible, node)
             }
@@ -106,30 +104,51 @@ class FolderView @JvmOverloads constructor(
         updateEmptyState()
     }
 
-    fun setDir(terima: File) {
-        if (terima.exists() && terima.isDirectory) {
-            targetDirectory = terima
-            expandedPaths.clear()
-            selectedFile = null
-            treeAdapter.clearSelection()
-            segarkan()
+    fun setUriDir(terima: Uri) {
+        try {
+            val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            context.contentResolver.takePersistableUriPermission(terima, flags)
+        } catch (_: SecurityException) {
+            
+        }
+
+        val doc = DocumentFile.fromTreeUri(context, terima)
+            ?: DocumentFile.fromSingleUri(context, terima)
+
+        if (doc != null && doc.exists() && doc.isDirectory) {
+            applyDirectory(doc)
+        } else {
+            Log.w("FolderView", "Need Directory: $terima")
         }
     }
 
-    fun getFile(): File = selectedFile ?: targetDirectory
-    fun getSelectedFile(): File? = selectedFile
-    fun getCurrentDir(): File = targetDirectory
+    private fun applyDirectory(doc: DocumentFile) {
+        targetDirectory = doc
+        expandedPaths.clear()
+        selectedDoc = null
+        treeAdapter.clearSelection()
+        refresh()
+    }
+
+    // ---- API publik ----
+
+    fun getCurrentDir(): DocumentFile = targetDirectory
+    fun getCurrentUri(): Uri = targetDirectory.uri
+
+    fun getSelectedDoc(): DocumentFile? = selectedDoc
+    fun getSelectedUri(): Uri? = selectedDoc?.uri
 
     fun clearSelection() {
-        selectedFile = null
+        selectedDoc = null
         treeAdapter.clearSelection()
     }
 
-    fun setOnFileSelectedListener(listener: (File) -> Unit) {
+    fun setOnFileSelectedListener(listener: (DocumentFile) -> Unit) {
         onFileSelected = listener
     }
 
-    fun setOnFileLongClickListener(listener: (File) -> Unit) {
+    fun setOnFileLongClickListener(listener: (DocumentFile) -> Unit) {
         onFileLongClick = listener
     }
 
@@ -140,13 +159,19 @@ class FolderView @JvmOverloads constructor(
 
     private fun restoreChildren(visible: MutableList<FileNode>, parent: FileNode) {
         val children = try {
-            parent.file.listFiles()?.toList() ?: emptyList()
-        } catch (e: SecurityException) { emptyList() }
+            parent.doc.listFiles().toList()
+        } catch (e: SecurityException) {
+            emptyList()
+        }
         val sorted = children.sortedWith(
-            compareBy({ !it.isDirectory }, { it.name.lowercase() })
+            compareBy({ !it.isDirectory }, { (it.name ?: "").lowercase() })
         )
         for (f in sorted) {
-            val node = FileNode(f, parent.depth + 1, isExpanded = expandedPaths.contains(f.absolutePath))
+            val node = FileNode(
+                f,
+                parent.depth + 1,
+                isExpanded = expandedPaths.contains(f.uri.toString())
+            )
             visible.add(node)
             if (node.isExpanded && f.isDirectory) restoreChildren(visible, node)
         }
@@ -166,6 +191,10 @@ class FolderView @JvmOverloads constructor(
         ).toInt()
     }
 
+    // ------------------------------------------------------------
+    // Adapter
+    // ------------------------------------------------------------
+
     private inner class TreeAdapter(
         private val onItemClick: (FileNode, Int) -> Unit,
         private val onItemLongClick: (FileNode, Int) -> Boolean
@@ -184,14 +213,20 @@ class FolderView @JvmOverloads constructor(
         fun setSelectedPosition(position: Int) {
             val old = selectedPosition
             selectedPosition = position
-            if (old != RecyclerView.NO_POSITION && old < visibleNodes.size) notifyItemChanged(old)
-            if (position != RecyclerView.NO_POSITION && position < visibleNodes.size) notifyItemChanged(position)
+            if (old != RecyclerView.NO_POSITION && old < visibleNodes.size) {
+                notifyItemChanged(old)
+            }
+            if (position != RecyclerView.NO_POSITION && position < visibleNodes.size) {
+                notifyItemChanged(position)
+            }
         }
 
-        fun clearSelection() = setSelectedPosition(RecyclerView.NO_POSITION)
+        fun clearSelection() {
+            setSelectedPosition(RecyclerView.NO_POSITION)
+        }
 
         fun indexOfPath(path: String): Int =
-            visibleNodes.indexOfFirst { it.file.absolutePath == path }
+            visibleNodes.indexOfFirst { it.doc.uri.toString() == path }
 
         fun toggleFolder(node: FileNode, position: Int) {
             if (position == RecyclerView.NO_POSITION || position >= visibleNodes.size) return
@@ -209,17 +244,25 @@ class FolderView @JvmOverloads constructor(
                 notifyItemChanged(position)
             } else {
                 val children = try {
-                    node.file.listFiles()?.toList() ?: emptyList()
-                } catch (e: SecurityException) { emptyList() }
+                    node.doc.listFiles().toList()
+                } catch (e: SecurityException) {
+                    emptyList()
+                }
                 val sortedChildren = children.sortedWith(
-                    compareBy({ !it.isDirectory }, { it.name.lowercase() })
+                    compareBy({ !it.isDirectory }, { (it.name ?: "").lowercase() })
                 )
                 val childNodes = sortedChildren.map {
-                    FileNode(it, node.depth + 1, isExpanded = expandedPaths.contains(it.absolutePath))
+                    FileNode(
+                        it,
+                        node.depth + 1,
+                        isExpanded = expandedPaths.contains(it.uri.toString())
+                    )
                 }
                 visibleNodes.addAll(position + 1, childNodes)
                 node.isExpanded = true
-                if (childNodes.isNotEmpty()) notifyItemRangeInserted(position + 1, childNodes.size)
+                if (childNodes.isNotEmpty()) {
+                    notifyItemRangeInserted(position + 1, childNodes.size)
+                }
                 notifyItemChanged(position)
             }
             updateEmptyState()
@@ -256,7 +299,7 @@ class FolderView @JvmOverloads constructor(
                 )
                 textSize = 10f
                 gravity = Gravity.CENTER
-                setTextColor(context.getColor(lib.R.color.text))
+                setTextColor(itemContext.getColor(lib.R.color.text))
             }
 
             val iconView = ImageView(itemContext).apply {
@@ -273,7 +316,7 @@ class FolderView @JvmOverloads constructor(
                     1f
                 )
                 textSize = 14f
-                setTextColor(context.getColor(lib.R.color.text))
+                setTextColor(itemContext.getColor(lib.R.color.text))
                 isSingleLine = true
                 ellipsize = TextUtils.TruncateAt.MIDDLE
             }
@@ -309,7 +352,7 @@ class FolderView @JvmOverloads constructor(
         override fun getItemCount(): Int = visibleNodes.size
 
         inner class TreeViewHolder(
-            view: android.view.View,
+            view: View,
             private val indicator: TextView,
             private val icon: ImageView,
             private val title: TextView
@@ -318,13 +361,13 @@ class FolderView @JvmOverloads constructor(
             private val hostActivity: Activity? = resolveActivity(view.context)
 
             fun bind(node: FileNode, isSelected: Boolean) {
-                title.text = node.file.name
+                title.text = node.doc.name ?: ""
 
                 val basePadding = dpToPx(itemView.context, 8f)
                 val indent = dpToPx(itemView.context, (node.depth * 20).toFloat())
                 itemView.setPadding(indent, basePadding, basePadding, basePadding)
 
-                if (node.file.isDirectory) {
+                if (node.doc.isDirectory) {
                     Glide.with(icon).clear(icon)
                     icon.setImageResource(lib.R.drawable.folder)
                     indicator.text = if (node.isExpanded) "▼" else "▶"
@@ -334,14 +377,17 @@ class FolderView @JvmOverloads constructor(
                     if (act != null) {
                         val ikon = lib.view.IconFile(act)
                         ikon.setGlide(icon)
-                        icon.setImageResource(ikon.Type(node.file))
+                        icon.setImageResource(ikon.Type(node.doc))
+                    } else {
+                        Glide.with(icon).load(node.doc.uri).into(icon)
                     }
                     indicator.text = ""
                     title.setTypeface(null, Typeface.NORMAL)
                 }
 
                 itemView.setBackgroundColor(
-                    if (isSelected) context.getColor(lib.R.color.parent) else Color.TRANSPARENT
+                    if (isSelected) itemView.context.getColor(lib.R.color.parent)
+                    else Color.TRANSPARENT
                 )
             }
         }
