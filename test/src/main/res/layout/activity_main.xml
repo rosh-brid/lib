@@ -55,7 +55,7 @@
         <ScrollView
              android:layout_height="match_parent"
              android:layout_width="match_parent"
-             android:layout_margin="10dp">
+             android:layout_marginTop="25dp">
 
             <GridLayout
                  android:layout_height="wrap_content"
@@ -67,9 +67,8 @@
                      android:layout_height="wrap_content"
                      android:layout_width="wrap_content"
                      android:gravity="center"
-                     android:padding="10dp"
-                     android:layout_margin="5dp"
-                     android:orientation="vertical">
+                     android:orientation="vertical"
+                     android:id="@+id/download">
 
                     <ImageView
                          android:layout_height="30dp"
@@ -81,6 +80,8 @@
                          android:layout_height="wrap_content"
                          android:layout_width="wrap_content"
                          android:gravity="center"
+                         android:maxWidth="70dp"
+                         android:maxLines="1"
                          android:text="Download" />
 
                 </LinearLayout>
@@ -89,20 +90,21 @@
                      android:layout_height="wrap_content"
                      android:layout_width="wrap_content"
                      android:gravity="center"
-                     android:padding="10dp"
-                     android:layout_margin="5dp"
-                     android:orientation="vertical">
+                     android:orientation="vertical"
+                     android:id="@+id/unzip">
 
                     <ImageView
                          android:layout_height="30dp"
                          android:layout_width="30dp"
-                         android:src="@drawable/download"
+                         android:src="@drawable/unzip"
                          android:layout_margin="3dp" />
 
                     <TextView
                          android:layout_height="wrap_content"
                          android:layout_width="wrap_content"
                          android:gravity="center"
+                         android:maxWidth="70dp"
+                         android:maxLines="1"
                          android:text="Unzip" />
 
                 </LinearLayout>
@@ -111,20 +113,21 @@
                      android:layout_height="wrap_content"
                      android:layout_width="wrap_content"
                      android:gravity="center"
-                     android:padding="10dp"
-                     android:layout_margin="5dp"
-                     android:orientation="vertical">
+                     android:orientation="vertical"
+                     android:id="@+id/delete">
 
                     <ImageView
                          android:layout_height="30dp"
                          android:layout_width="30dp"
-                         android:src="@drawable/file"
+                         android:src="@drawable/delete"
                          android:layout_margin="3dp" />
 
                     <TextView
                          android:layout_height="wrap_content"
                          android:layout_width="wrap_content"
                          android:gravity="center"
+                         android:maxWidth="70dp"
+                         android:maxLines="1"
                          android:text="Delete" />
 
                 </LinearLayout>

@@ -22,13 +22,11 @@ class Delete(private val kelas: Activity) {
 
     @Volatile
     private var isDeleting = false
-    private var lastUpdateTime = 0L // Untuk mencegah lag saat update UI
+    private var lastUpdateTime = 0L 
     private val mainHandler = Handler(Looper.getMainLooper())
 
     private var item: View = LayoutInflater.from(kelas).inflate(R.layout.pop_delete, null)
     private var pop: PopupWindow
-
-    // View Cache
     private val txtNamaFile: TextView
     private val txtNamaProses: TextView
     private val progressBar: ProgressBar
@@ -48,17 +46,15 @@ class Delete(private val kelas: Activity) {
         anak = item.findViewById(R.id.anak)
 
         inti.setOnClickListener { cancelDeletion() }
-        anak.setOnClickListener { } // Mencegah popup tertutup saat area dalam diklik
+        anak.setOnClickListener { } 
         btnN.setOnClickListener { cancelDeletion() }
     }
 
-    // Menerima list file atau folder yang akan dihapus
     fun setFile(terima: List<File>): Delete {
         this.targetFiles = terima
         return this
     }
 
-    // Callback saat selesai
     fun onFinished(action: () -> Unit): Delete {
         this.selesai = action
         return this
@@ -70,12 +66,11 @@ class Delete(private val kelas: Activity) {
             return
         }
 
-        txtNamaFile.text = "Menghapus ${targetFiles.size} item..."
-        txtNamaProses.text = "Memulai..."
+        txtNamaFile.text = "Remove ${targetFiles.size} item..."
+        txtNamaProses.text = "Start..."
         progressBar.visibility = View.VISIBLE
-        btnN.text = "Batal"
+        btnN.text = "Cencel"
 
-        // Menampilkan popup di tengah layar
         pop.showAtLocation(kelas.window.decorView.rootView, Gravity.CENTER, 0, 0)
 
         isDeleting = true
@@ -97,11 +92,10 @@ class Delete(private val kelas: Activity) {
                 finishSuccess(totalDeleted)
             }
         } catch (e: Exception) {
-            showError("Gagal: ${e.message}")
+            showError("Error: ${e.message}")
         }
     }
 
-    // Fungsi rekursif untuk menghapus folder beserta isinya
     private fun deleteRecursive(fileOrDirectory: File) {
         if (!isDeleting) return
 
@@ -114,14 +108,10 @@ class Delete(private val kelas: Activity) {
             }
         }
 
-        // Tampilkan file yang sedang dihapus ke UI
         updateProgress(fileOrDirectory.name)
         
-        // Eksekusi penghapusan file / folder kosong
         fileOrDirectory.delete()
     }
-
-    // ================== UPDATE UI ==================
 
     private fun updateMainText(text: String) {
         mainHandler.post { txtNamaFile.text = text }
@@ -129,7 +119,6 @@ class Delete(private val kelas: Activity) {
 
     private fun updateProgress(fileName: String) {
         val currentTime = System.currentTimeMillis()
-        // THROTTLE: Update UI maksimal 10 kali per detik agar aplikasi tidak LAG!
         if (currentTime - lastUpdateTime > 100) {
             lastUpdateTime = currentTime
             
@@ -144,9 +133,9 @@ class Delete(private val kelas: Activity) {
         mainHandler.post {
             isDeleting = false
             progressBar.visibility = View.GONE
-            txtNamaFile.text = "Selesai"
-            txtNamaProses.text = "$totalDeleted item utama berhasil dihapus."
-            btnN.text = "Tutup"
+            txtNamaFile.text = "Finish"
+            txtNamaProses.text = "$totalDeleted item success delete."
+            btnN.text = "Close"
             
             btnN.setOnClickListener {
                 selesai?.invoke()
@@ -159,8 +148,8 @@ class Delete(private val kelas: Activity) {
         mainHandler.post {
             isDeleting = false
             progressBar.visibility = View.GONE
-            txtNamaProses.text = msg ?: "Terjadi kesalahan tidak dikenal."
-            btnN.text = "Tutup"
+            txtNamaProses.text = msg ?: "unknow error"
+            btnN.text = "Close"
             btnN.setOnClickListener { pop.dismiss() }
         }
     }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="@color/bg_log"
+     android:gravity="center"
+     android:id="@+id/inti">
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:background="@drawable/bg_kotak"
+         android:layout_margin="15dp"
+         android:padding="5dp"
+         android:orientation="vertical"
+         android:backgroundTint="@color/bg_pop"
+         android:id="@+id/anak">
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:padding="10dp"
+             android:layout_margin="5dp"
+             android:textSize="18sp"
+             android:fontFamily="@font/alkdots"
+             android:text="Delete File" />
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:layout_margin="25dp"
+             android:orientation="vertical">
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="16sp"
+                 android:text="File will delete"
+                 android:textStyle="italic" />
+
+            <Button
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_margin="10dp"
+                 android:id="@+id/pilih"
+                 android:layout_gravity="center_horizontal"
+                 android:text="Select File" />
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:gravity="end"
+             android:layout_margin="15dp">
+
+            <TextView
+                 android:layout_height="40dp"
+                 android:layout_width="80dp"
+                 android:gravity="center"
+                 android:textSize="16sp"
+                 android:id="@+id/n"
+                 android:textStyle="bold"
+                 android:text="Cencel" />
+
+            <TextView
+                 android:layout_height="40dp"
+                 android:layout_width="80dp"
+                 android:gravity="center"
+                 android:textSize="16sp"
+                 android:id="@+id/y"
+                 android:textStyle="bold"
+                 android:text="next" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
