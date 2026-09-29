@@ -132,6 +132,29 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:gravity="center"
+                     android:orientation="vertical"
+                     android:id="@+id/code">
+
+                    <ImageView
+                         android:layout_height="30dp"
+                         android:layout_width="30dp"
+                         android:src="@drawable/code_editor"
+                         android:layout_margin="3dp" />
+
+                    <TextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:gravity="center"
+                         android:maxWidth="70dp"
+                         android:maxLines="1"
+                         android:text="Code Editor" />
+
+                </LinearLayout>
+
             </GridLayout>
 
         </ScrollView>

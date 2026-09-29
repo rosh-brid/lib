@@ -158,12 +158,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         val l = lib.os.Display(this)
-
         val download = findViewById<LinearLayout>(R.id.download)
 
         download.layoutParams.apply {
             width = l.width() / 3
-            height = ViewGroup.LayoutParams.WRAP_CONTENT
+            height = l.height() / 5
         }
 
         Click(download).one {
@@ -174,7 +173,7 @@ class MainActivity : AppCompatActivity() {
 
         unzip.layoutParams.apply {
             width = l.width() / 3
-            height = ViewGroup.LayoutParams.WRAP_CONTENT
+            height = l.height() / 5
         }
 
         Click(unzip).one {
@@ -185,11 +184,20 @@ class MainActivity : AppCompatActivity() {
 
         delete.layoutParams.apply {
             width = l.width() / 3
-            height = ViewGroup.LayoutParams.WRAP_CONTENT
+            height = l.height() / 5
         }
 
         Click(delete).one {
             DeleteFeature()
+        }
+        
+        val code = findViewById<LinearLayout>(R.id.code)
+        code.layoutParams.apply {
+            width = l.width() / 3
+            height = l.height() / 5
+        }
+        Click(code).one{
+            startActivity(Intent(this, Code::class.java))
         }
     }
 }

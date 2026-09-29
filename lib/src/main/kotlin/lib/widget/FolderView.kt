@@ -191,10 +191,6 @@ class FolderView @JvmOverloads constructor(
         ).toInt()
     }
 
-    // ------------------------------------------------------------
-    // Adapter
-    // ------------------------------------------------------------
-
     private inner class TreeAdapter(
         private val onItemClick: (FileNode, Int) -> Unit,
         private val onItemLongClick: (FileNode, Int) -> Boolean

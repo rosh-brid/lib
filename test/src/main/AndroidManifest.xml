@@ -18,7 +18,12 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            
         </activity>
+        <activity android:name="Code" android:exported="true"/>
+        
+        <activity
+            android:name="Terminal" android:exported="true"/>
     </application>
     
 </manifest>

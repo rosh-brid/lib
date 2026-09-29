@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:id="@+id/pusat">
+
+    <LinearLayout
+         android:layout_height="match_parent"
+         android:layout_width="match_parent"
+         android:orientation="vertical">
+
+        <FrameLayout
+             android:layout_height="50dp"
+             android:layout_width="match_parent"
+             android:background="@color/bg">
+
+            <ImageView
+                 android:layout_height="30dp"
+                 android:layout_width="30dp"
+                 android:src="@drawable/nav"
+                 android:layout_marginStart="10dp"
+                 android:layout_gravity="center_vertical|start"
+                 android:id="@+id/nav" />
+
+        </FrameLayout>
+
+        <lib.widget.roshcode.CodeEditor
+             android:layout_height="match_parent"
+             android:layout_width="match_parent"
+             android:id="@+id/editor" />
+
+    </LinearLayout>
+
+    <LinearLayout
+         android:layout_height="match_parent"
+         android:layout_width="310dp"
+         android:background="@color/bg"
+         android:orientation="vertical"
+         android:layout_gravity="start">
+
+        <FrameLayout
+             android:layout_height="50dp"
+             android:layout_width="match_parent"
+             android:background="@drawable/bg_card"
+             android:layout_margin="10dp">
+
+            <ImageView
+                 android:layout_height="30dp"
+                 android:layout_width="30dp"
+                 android:src="@drawable/exit"
+                 android:layout_marginStart="10dp"
+                 android:layout_gravity="center_vertical|start"
+                 android:id="@+id/keluar" />
+
+            <ImageView
+                 android:layout_height="30dp"
+                 android:layout_width="30dp"
+                 android:layout_marginEnd="10dp"
+                 android:src="@drawable/arrow_close"
+                 android:layout_gravity="center_vertical|end"
+                 android:id="@+id/tutup" />
+
+        </FrameLayout>
+
+        <LinearLayout
+             android:layout_height="match_parent"
+             android:layout_width="match_parent"
+             android:orientation="horizontal">
+
+            <LinearLayout
+                 android:layout_height="match_parent"
+                 android:layout_width="50dp">
+
+            </LinearLayout>
+
+            <LinearLayout
+                 android:layout_height="match_parent"
+                 android:layout_width="match_parent">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

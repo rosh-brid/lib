@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="wrap_content"
+     android:layout_width="wrap_content"
+     android:background="@drawable/bg_kotak"
+     android:padding="5dp"
+     android:orientation="horizontal"
+     android:backgroundTint="@color/ui_main"
+     android:id="@+id/inti">
+
+    <ImageView
+         android:layout_height="30dp"
+         android:layout_width="30dp"
+         android:src="@drawable/copy"
+         android:layout_margin="5dp"
+         android:id="@+id/salin" />
+
+    <ImageView
+         android:layout_height="30dp"
+         android:layout_width="30dp"
+         android:src="@drawable/cut"
+         android:layout_margin="5dp"
+         android:id="@+id/potong" />
+
+    <ImageView
+         android:layout_height="30dp"
+         android:layout_width="30dp"
+         android:visibility="gone"
+         android:src="@drawable/paste"
+         android:layout_margin="5dp"
+         android:id="@+id/tempel" />
+
+    <ImageView
+         android:layout_height="30dp"
+         android:layout_width="30dp"
+         android:src="@drawable/select_all"
+         android:layout_margin="5dp"
+         android:id="@+id/pilih_semua" />
+
+</LinearLayout>
