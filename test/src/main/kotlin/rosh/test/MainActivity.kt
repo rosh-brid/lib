@@ -162,7 +162,7 @@ class MainActivity : AppCompatActivity() {
 
         download.layoutParams.apply {
             width = l.width() / 3
-            height = l.height() / 5
+            height = l.height() / 6
         }
 
         Click(download).one {
@@ -173,7 +173,7 @@ class MainActivity : AppCompatActivity() {
 
         unzip.layoutParams.apply {
             width = l.width() / 3
-            height = l.height() / 5
+            height = l.height() / 6
         }
 
         Click(unzip).one {
@@ -184,7 +184,7 @@ class MainActivity : AppCompatActivity() {
 
         delete.layoutParams.apply {
             width = l.width() / 3
-            height = l.height() / 5
+            height = l.height() / 6
         }
 
         Click(delete).one {
@@ -194,7 +194,7 @@ class MainActivity : AppCompatActivity() {
         val code = findViewById<LinearLayout>(R.id.code)
         code.layoutParams.apply {
             width = l.width() / 3
-            height = l.height() / 5
+            height = l.height() / 6
         }
         Click(code).one{
             startActivity(Intent(this, Code::class.java))

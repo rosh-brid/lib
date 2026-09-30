@@ -8,6 +8,7 @@
     
     <color name="ui_main">#80773377</color>
     <color name="ui_parent">#80337777</color>
+    <color name="ui_bg">#80000000</color>
     
      <color name="main">#773377</color>
     <color name="parent">#337777</color>

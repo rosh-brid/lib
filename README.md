@@ -96,12 +96,12 @@ Library Android from Rosh.
    ```
    //kotlin
    dependencies {
-       implementation("com.github.rosh-brid:lib:1.2.5")
+       implementation("com.github.rosh-brid:lib:1.2.8")
    }
    
    //groovy
    dependencies {
-      implementation 'com.github.rosh-brid:lib:1.2.5'
+      implementation 'com.github.rosh-brid:lib:1.2.8'
    }
    ```
 [![](https://jitpack.io/v/rosh-brid/lib.svg)](https://jitpack.io/#rosh-brid/lib)
